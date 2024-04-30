@@ -40,8 +40,8 @@
 import Id from "~/server/api/movies/[id]"
 import type {MovieData, PersonData} from "../types/types"
 
-    let personData: Ref<PersonData | null>[] = ref([null, null])
-    const movieCreditResults: Ref<MovieData[]> = ref([])
+    let personData = ref<PersonData[] | null>(null)
+    const movieCreditResults: Ref<MovieData>[]([null, null])
     let inputValue = reactive({
         searchBar1: '',
         searchBar2: ''
@@ -52,7 +52,7 @@ import type {MovieData, PersonData} from "../types/types"
     const getPersonData = async(person: string) => {
         const {data} = await useFetch<PersonData | null>(`/api/person/${person}`)
         if (data !== null) {
-            personData.value.push(data)
+            personData.value?.push(data as PersonData)
         }
     }
 
