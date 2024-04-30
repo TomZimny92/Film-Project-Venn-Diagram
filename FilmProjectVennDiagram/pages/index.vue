@@ -58,13 +58,21 @@ import type {MovieData, PersonData} from "../types/types"
         personData.value = []
         await getPersonData(sb1)
         await getPersonData(sb2)
-        await retrieveMoveies()
-        crossReference(movieCreditResults)
+        await retrieveMovies()
+        if (movieCreditResults.value !== null){
+            crossReference(movieCreditResults.value)
+        }
+        else {
+            console.log('movieCreditResults is null')
+        } 
     }
 
     const retrieveMovies = async() => {
-        const personOne = personData.value[0].value[0].id
-        const personTwo = personData.value[1].value[0].id
+        if (personData.value !== null){
+            const personOne = personData.value[0].Id
+            const personTwo = personData.value[1].Id
+        }
+       
         movieCreditResults.value = []
         await getMovieData(personOne)
         await getMovieData(personTwo)
@@ -75,43 +83,24 @@ import type {MovieData, PersonData} from "../types/types"
         movieCreditResults.value.push(data)
     }
 
+    const sortMovieResults = async (movies: MovieData[]) => {
+        const property = 'popularity'
+        await sort(movies, property)
+    }
+
+    const crossReference = async(movieCreditResults: MovieData[]) => {
+        const matchedMovies: MovieData[] = []
+        for (let i = 0; i < movieCreditResults[0].movies.length; ++i){
+            
+        }
+    }
+
 </script>
 
 //export default {
 
     //methods: {
-        //async getPersonData(person){
-            //const {data} = await useFetch(`/api/person/${person}`)
-            //this.personData.push(data)
-        //},
-        //async submitNames(sb1, sb2){
-            //this.personData = []
-            //await this.getPersonData(sb1)
-            //await this.getPersonData(sb2)
-            //await this.retrieveMovies()
-            //this.crossReference(this.movieCreditResults)
 
-        //},
-        //async retrieveMovies() {
-            //const personOne = this.personData[0].value[0].id
-            //const personTwo = this.personData[1].value[0].id
-            //this.movieCreditResults = []
-            //await this.getMovieData(personOne)
-            //await this.getMovieData(personTwo)        
-        //},
-        //async getMovieData(id){
-            //const {data} = await useFetch(`/api/movies/${id}`)
-            //this.movieCreditResults.push(data)
-        //},
-
-        //async sortMovieResults(movies){
-            //const searchBar = this.$refs.SearchBar
-            //if (searchBar){
-                //await searchBar.quickSort(movies, 0, movies.length - 1, 'popularity')
-            //}
-            //const property = 'popularity'
-            //return sort(movies, property)
-        //},
 
 
         //async crossReference(movieCreditResults){
