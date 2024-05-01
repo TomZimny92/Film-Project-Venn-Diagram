@@ -68,19 +68,30 @@ import type {MovieData, PersonData} from "../types/types"
     }
 
     const retrieveMovies = async() => {
+        let personOne: number | undefined = 0
+        let personTwo: number | undefined = 0 
         if (personData.value !== null){
-            const personOne = personData.value[0].Id
-            const personTwo = personData.value[1].Id
+            personOne = personData.value[0].Id
+            personTwo = personData.value[1].Id
+        }
+        else {
+            console.log('personData is null')
         }
        
         movieCreditResults.value = []
-        await getMovieData(personOne)
-        await getMovieData(personTwo)
+        if (personOne !== null && personTwo !== null){
+            await getMovieData(personOne)
+            await getMovieData(personTwo)
+        }
+       
     }
 
-    const getMovieData = async(id: string) => {
+    const getMovieData = async(id?: number) => {
         const {data} = await useFetch<MovieData>(`/api/movies/${id}`)
-        movieCreditResults.value.push(data)
+        if (data !== null){
+            movieCreditResults.value?.push(data)
+        }
+        
     }
 
     const sortMovieResults = async (movies: MovieData[]) => {
