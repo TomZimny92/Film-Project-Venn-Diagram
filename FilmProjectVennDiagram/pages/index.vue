@@ -37,7 +37,6 @@
 </template>
 
 <script setup lang="ts">
-import Id from "~/server/api/movies/[id]"
 import type {MovieData, PersonData} from "../types/types"
 
     let personData = ref<PersonData[] | null>(null)
@@ -101,36 +100,22 @@ import type {MovieData, PersonData} from "../types/types"
 
     const crossReference = async(movieCreditResults: MovieData[]) => {
         const matchedMovies: MovieData[] = []
-        for (let i = 0; i < movieCreditResults[0].movies.length; ++i){
-            
+        for (let i = 0; i < movieCreditResults[0].value.movies.length; ++i){
+            const movie1 = movieCreditResults[0].value.movies[i]
+
+            for (let j = 0; j < movieCreditResults[1].value.movies.length; ++j){
+                const movie2 = movieCreditResults[1].value.movies[j]
+                if (movie1.id === movie2.id){
+                    matchedMovies.push(movie1)
+                }
+            }
         }
+        movies.value = matchedMovies
+        await sortMovieResults(movies.value)
     }
 
 </script>
 
-//export default {
-
-    //methods: {
-
-
-
-        //async crossReference(movieCreditResults){
-            //const matchedMovies = []
-            //for (let i = 0; i < movieCreditResults[0].value.movies.length; ++i){
-                //const movie1 = movieCreditResults[0].value.movies[i]
-
-                //for (let j = 0; j < movieCreditResults[1].value.movies.length; ++j){
-                    //const movie2 = movieCreditResults[1].value.movies[j]
-                    //if (movie1.id === movie2.id){
-                        //matchedMovies.push(movie1)
-                    //}
-                //}
-            //}
-            //this.movies = matchedMovies
-            //await this.sortMovieResults(this.movies)
-        //}
-    //}
-//}
      
 <style scoped>
     .search-bars {
