@@ -28,6 +28,8 @@
 </template>
 
 <script setup lang="ts">
+    //import {MovieData, PersonData} from '../types/index'
+    import { defineEmits } from 'vue';
     let filteredResults: Ref<[]> = ref([])
     const imageUrl: string = 'https://image.tmdb.org/t/p/w500/'
     let inputValue: Ref<string> = ref('')
@@ -40,7 +42,8 @@
     }
 
     const selectPerson = async (person: String): Promise<void> => {
-        emit('update:inputValue.value', person.fullName)
+        console.log(`selectPerson: ${person.fullName}`)
+        emit('update', person.fullName)
         filteredResults.value = []
     }
 
