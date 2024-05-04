@@ -19,9 +19,12 @@
             <SearchBarCompApi 
                 v-model="inputValue.searchBar2"
                 type="text"
+                @add="(i) => count += i"
             />
         </div>
-
+        <p>Count: {{ count }}</p>
+        <p>inputValue.searchBar1: {{ inputValue.searchBar1 }}</p>
+        <p>inputValue.searchBar2: {{ inputValue.searchBar2 }}</p>
         <div>
             <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
         </div>
@@ -45,6 +48,7 @@ import type {MovieData, PersonData} from "../types/types"
         searchBar1: '',
         searchBar2: ''
     })
+    const count = ref(0)
     let movies = ref([])
     let imageUrl: string = 'https://image.tmdb.org/t/p/w500'
 
@@ -70,8 +74,8 @@ import type {MovieData, PersonData} from "../types/types"
         let personOne: number | undefined = 0
         let personTwo: number | undefined = 0 
         if (personData.value !== null){
-            personOne = personData.value[0].Id
-            personTwo = personData.value[1].Id
+            personOne = personData.value[0].value[0].id
+            personTwo = personData.value[1].value[1].id
         }
         else {
             console.log('personData is null')
@@ -88,7 +92,7 @@ import type {MovieData, PersonData} from "../types/types"
     const getMovieData = async(id?: number) => {
         const {data} = await useFetch<MovieData>(`/api/movies/${id}`)
         if (data !== null){
-            movieCreditResults.value?.push(data)
+            movieCreditResults.value?.push(data.value)
         }
         
     }

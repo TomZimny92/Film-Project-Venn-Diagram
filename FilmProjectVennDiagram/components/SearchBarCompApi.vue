@@ -5,9 +5,11 @@
            @keyup="filterSearchBar"
            :placeholder="label"
            v-bind="$attrs"
-           @input="$emit('update:inputValue.value', $event.target.value)"
+           @input="emit('update:inputValue.value', $event.target.value)"
         />
         <p>inputValue.value is: {{ inputValue }}</p>
+        <button @click="emit('add', 2)">Add</button>
+        <p></p>
         <ul v-if="filteredResults && inputValue !== ''">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
                 <div class="person-image">
@@ -29,13 +31,13 @@
 
 <script setup lang="ts">
     //import {MovieData, PersonData} from '../types/index'
-    import { defineEmits } from 'vue';
+    //import { defineEmits } from 'vue';
     let filteredResults: Ref<[]> = ref([])
     const imageUrl: string = 'https://image.tmdb.org/t/p/w500/'
     let inputValue: Ref<string> = ref('')
     const label: string ='Enter name...'
 
-    const emit = defineEmits(['input', 'update', 'update:inputValue.value'])
+    const emit = defineEmits(['add', 'input', 'update', 'update:inputValue.value'])
 
     const testKeyPress = () => {
         console.log(inputValue.value)
@@ -43,7 +45,7 @@
 
     const selectPerson = async (person: String): Promise<void> => {
         console.log(`selectPerson: ${person.fullName}`)
-        emit('update', person.fullName)
+        emit('update:inputValue.value', person.fullName)
         filteredResults.value = []
     }
 
