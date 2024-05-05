@@ -64,18 +64,23 @@ import type {MovieData, PersonData} from "../types/types"
         await retrieveMovies()
         if (movieCreditResults.value !== null){
             crossReference(movieCreditResults.value)
+            displayMovieResults()
         }
         else {
             console.log('movieCreditResults is null')
         } 
     }
 
+    const displayMovieResults = computed(() => {
+        console.log(movieCreditResults.value)
+    })
+
     const retrieveMovies = async() => {
         let personOne: number | undefined = 0
         let personTwo: number | undefined = 0 
         if (personData.value !== null){
             personOne = personData.value[0].value[0].id
-            personTwo = personData.value[1].value[1].id
+            personTwo = personData.value[1].value[0].id
         }
         else {
             console.log('personData is null')
@@ -104,18 +109,20 @@ import type {MovieData, PersonData} from "../types/types"
 
     const crossReference = async(movieCreditResults: MovieData[]) => {
         const matchedMovies: MovieData[] = []
-        for (let i = 0; i < movieCreditResults[0].value.movies.length; ++i){
-            const movie1 = movieCreditResults[0].value.movies[i]
+        console.log(movieCreditResults[0].movies.length)
+        for (let i = 0; i < movieCreditResults[0].movies.length; ++i){
+            console.log(movieCreditResults[0].movies[i].title)
+            const movie1 = movieCreditResults[0].movies[i]
 
-            for (let j = 0; j < movieCreditResults[1].value.movies.length; ++j){
-                const movie2 = movieCreditResults[1].value.movies[j]
+            for (let j = 0; j < movieCreditResults[1].movies.length; ++j){
+                const movie2 = movieCreditResults[1].movies[j]
                 if (movie1.id === movie2.id){
                     matchedMovies.push(movie1)
                 }
             }
         }
-        movies.value = matchedMovies
-        await sortMovieResults(movies.value)
+        movies = matchedMovies
+        await sortMovieResults(movies)
     }
 
 </script>
