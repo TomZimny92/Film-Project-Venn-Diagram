@@ -49,7 +49,7 @@ import type {MovieData, PersonData} from "../types/types"
         searchBar2: ''
     })
     const count = ref(0)
-    let movies = ref([])
+    const movies = ref([])
     let imageUrl: string = 'https://image.tmdb.org/t/p/w500'
 
     const getPersonData = async(person: string) => {
@@ -64,16 +64,11 @@ import type {MovieData, PersonData} from "../types/types"
         await retrieveMovies()
         if (movieCreditResults.value !== null){
             crossReference(movieCreditResults.value)
-            displayMovieResults()
         }
         else {
             console.log('movieCreditResults is null')
         } 
     }
-
-    const displayMovieResults = computed(() => {
-        console.log(movieCreditResults.value)
-    })
 
     const retrieveMovies = async() => {
         let personOne: number | undefined = 0
@@ -121,8 +116,8 @@ import type {MovieData, PersonData} from "../types/types"
                 }
             }
         }
-        movies = matchedMovies
-        await sortMovieResults(movies)
+        movies.value = matchedMovies
+        await sortMovieResults(movies.value)
     }
 
 </script>
