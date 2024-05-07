@@ -5,8 +5,8 @@
            @keyup="filterSearchBar"
            :placeholder="label"
            v-bind="$attrs"
-           @input="emit('update:inputValue.value', $event.target.value)"
-        />
+           @input="emit('update:inputValue', $event.target.value)"
+        /> 
         <ul v-if="filteredResults && inputValue !== ''">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
                 <div class="person-image">
@@ -32,9 +32,9 @@
     let inputValue: Ref<string> = ref('')
     const label: string ='Enter name...'
 
-    const emit = defineEmits(['add', 'input', 'update', 'update:inputValue.value'])
+    const emit = defineEmits(['add', 'input', 'update', 'update:inputValue'])
 
-    const selectPerson = async (person: String): Promise<void> => {
+    const selectPerson = (person: String) => {
         inputValue.value = person.fullName
         filteredResults.value = []
     }
