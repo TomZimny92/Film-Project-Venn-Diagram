@@ -7,9 +7,6 @@
            v-bind="$attrs"
            @input="emit('update:inputValue.value', $event.target.value)"
         />
-        <p>inputValue.value is: {{ inputValue }}</p>
-        <button @click="emit('add', 2)">Add</button>
-        <p></p>
         <ul v-if="filteredResults && inputValue !== ''">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
                 <div class="person-image">
@@ -30,8 +27,6 @@
 </template>
 
 <script setup lang="ts">
-    //import {MovieData, PersonData} from '../types/index'
-    //import { defineEmits } from 'vue';
     let filteredResults: Ref<[]> = ref([])
     const imageUrl: string = 'https://image.tmdb.org/t/p/w500/'
     let inputValue: Ref<string> = ref('')
@@ -39,18 +34,12 @@
 
     const emit = defineEmits(['add', 'input', 'update', 'update:inputValue.value'])
 
-    const testKeyPress = () => {
-        console.log(inputValue.value)
-    }
-
     const selectPerson = async (person: String): Promise<void> => {
-        console.log(`selectPerson: ${person.fullName}`)
-        emit('update:inputValue.value', person.fullName)
+        inputValue.value = person.fullName
         filteredResults.value = []
     }
 
     const filterSearchBar = async () => {
-        console.log(`filterSearchBar: ${inputValue.value}`)
         if (inputValue.value){
             filteredResults.value = []
             const {data} = await useFetch(`/api/person/${inputValue.value}`)

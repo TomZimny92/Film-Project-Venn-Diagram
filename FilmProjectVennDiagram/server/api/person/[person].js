@@ -2,7 +2,7 @@
 export default defineEventHandler(async (event) => {
 
     const { person } = event.context.params    
-    console.log(`person: ${person}`)
+    //console.log(`person: ${person}`)
     const { baseUrl } = useRuntimeConfig()
     const { accessToken } = useRuntimeConfig()
 

@@ -19,12 +19,8 @@
             <SearchBarCompApi 
                 v-model="inputValue.searchBar2"
                 type="text"
-                @add="(i) => count += i"
             />
         </div>
-        <p>Count: {{ count }}</p>
-        <p>inputValue.searchBar1: {{ inputValue.searchBar1 }}</p>
-        <p>inputValue.searchBar2: {{ inputValue.searchBar2 }}</p>
         <div>
             <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
         </div>
@@ -104,9 +100,7 @@ import type {MovieData, PersonData} from "../types/types"
 
     const crossReference = async(movieCreditResults: MovieData[]) => {
         const matchedMovies: MovieData[] = []
-        console.log(movieCreditResults[0].movies.length)
         for (let i = 0; i < movieCreditResults[0].movies.length; ++i){
-            console.log(movieCreditResults[0].movies[i].title)
             const movie1 = movieCreditResults[0].movies[i]
 
             for (let j = 0; j < movieCreditResults[1].movies.length; ++j){
