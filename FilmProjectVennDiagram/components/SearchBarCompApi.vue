@@ -5,7 +5,7 @@
            @keyup="filterSearchBar"
            :placeholder="label"
            v-bind="$attrs"
-           @input="emit('update:inputValue', $event.target.value)"
+           @input="$emit('update:inputValue', inputValue.value)"
         /> 
         <ul v-if="filteredResults && inputValue !== ''">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
