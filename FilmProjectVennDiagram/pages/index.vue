@@ -20,6 +20,9 @@
                 v-model="inputValue.searchBar2"
                 type="text"
             />
+            <TestComponent
+                v-model="inputValue.searchBar1"
+            />  
         </div>
         <div>
             <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>

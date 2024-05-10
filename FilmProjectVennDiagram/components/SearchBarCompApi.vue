@@ -1,11 +1,11 @@
 <template>
     <div>
         <input
-           v-model="inputValue"
+           v-model="model"
            @keyup="filterSearchBar"
            :placeholder="label"
            v-bind="$attrs"
-           @input="$emit('update:inputValue', inputValue.value)"
+           @input="$emit('update:inputValue', $event.target.value)"
         /> 
         <ul v-if="filteredResults && inputValue !== ''">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
@@ -30,19 +30,20 @@
     let filteredResults: Ref<[]> = ref([])
     const imageUrl: string = 'https://image.tmdb.org/t/p/w500/'
     let inputValue: Ref<string> = ref('')
+    const model = defineModel()
     const label: string ='Enter name...'
 
     const emit = defineEmits(['add', 'input', 'update', 'update:inputValue'])
 
     const selectPerson = (person: String) => {
-        inputValue.value = person.fullName
+        model.value = person.fullName
         filteredResults.value = []
     }
 
     const filterSearchBar = async () => {
-        if (inputValue.value){
+        if (model.value){
             filteredResults.value = []
-            const {data} = await useFetch(`/api/person/${inputValue.value}`)
+            const {data} = await useFetch(`/api/person/${model.value}`)
             await sortSearchBarResults(data.value, 'popularity')
         }
     }
