@@ -1,16 +1,7 @@
 <template>
     <div>
         <div class="search-bars">
-            <!--<SearchBar
-                v-model="inputValue.searchBar1"
-                label="Enter name..."
-                type="text"
-            />
-            <SearchBar
-                v-model="inputValue.searchBar2"
-                label="Enter name..."
-                type="text"
-            />-->
+            
             <SearchBarCompApi 
                 v-model="inputValue.searchBar1"
                 type="text"
@@ -20,9 +11,7 @@
                 v-model="inputValue.searchBar2"
                 type="text"
             />
-            <TestComponent
-                v-model="inputValue.searchBar1"
-            />  
+            
         </div>
         <div>
             <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
@@ -47,7 +36,6 @@ import type {MovieData, PersonData} from "../types/types"
         searchBar1: '',
         searchBar2: ''
     })
-    const count = ref(0)
     const movies = ref([])
     let imageUrl: string = 'https://image.tmdb.org/t/p/w500'
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <input
-           v-model="model"
+           v-model="inputValue"
            @keyup="filterSearchBar"
            :placeholder="label"
            v-bind="$attrs"
@@ -29,21 +29,21 @@
 <script setup lang="ts">
     let filteredResults: Ref<[]> = ref([])
     const imageUrl: string = 'https://image.tmdb.org/t/p/w500/'
-    let inputValue: Ref<string> = ref('')
-    const model = defineModel()
+    const inputValue = defineModel()
+    //const model = defineModel()
     const label: string ='Enter name...'
 
     const emit = defineEmits(['add', 'input', 'update', 'update:inputValue'])
 
     const selectPerson = (person: String) => {
-        model.value = person.fullName
+        inputValue.value = person.fullName
         filteredResults.value = []
     }
 
     const filterSearchBar = async () => {
-        if (model.value){
+        if (inputValue.value){
             filteredResults.value = []
-            const {data} = await useFetch(`/api/person/${model.value}`)
+            const {data} = await useFetch(`/api/person/${inputValue.value}`)
             await sortSearchBarResults(data.value, 'popularity')
         }
     }
