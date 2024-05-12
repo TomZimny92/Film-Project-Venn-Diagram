@@ -6,8 +6,9 @@
            :placeholder="label"
            v-bind="$attrs"
            @input="$emit('update:inputValue', $event.target.value)"
+           
         /> 
-        <ul v-if="filteredResults && inputValue !== ''">
+        <ul v-if="filteredResults && inputValue !== ''" @keydown.down="selectSearchBarOption($event)">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
                 <div class="person-image">
                     <img :src="`${imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
@@ -51,6 +52,16 @@
     const sortSearchBarResults = async (data: any, popularity: string) => {
         await sort(data, popularity)
         filteredResults.value = data
+    }
+
+    const selectSearchBarOption = (event: KeyboardEvent) => {
+        let listIndex: number = -1
+        if (event.key === 'ArrowDown') {
+            if (filteredResults.value.length > 0) {
+                listIndex++
+                filteredResults.value[listIndex].focus = true
+
+        }
     }
 
 </script>
