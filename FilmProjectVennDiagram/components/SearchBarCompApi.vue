@@ -6,9 +6,10 @@
            :placeholder="label"
            v-bind="$attrs"
            @input="$emit('update:inputValue', $event.target.value)"
-           
+           @blur="inputFocus = false"
+           @focus="inputFocus = true"
         /> 
-        <ul v-if="filteredResults && inputValue !== ''" @keydown.down="selectSearchBarOption($event)">
+        <ul v-if="filteredResults && inputValue !== '' && inputFocus === true" @keydown.down="selectSearchBarOption($event)">
             <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
                 <div class="person-image">
                     <img :src="`${imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
@@ -31,10 +32,11 @@
     let filteredResults: Ref<[]> = ref([])
     const imageUrl: string = 'https://image.tmdb.org/t/p/w500/'
     const inputValue = defineModel()
-    //const model = defineModel()
     const label: string ='Enter name...'
 
     const emit = defineEmits(['add', 'input', 'update', 'update:inputValue'])
+
+    let inputFocus: Ref<boolean> = ref(true)
 
     const selectPerson = (person: String) => {
         inputValue.value = person.fullName
@@ -60,9 +62,11 @@
             if (filteredResults.value.length > 0) {
                 listIndex++
                 filteredResults.value[listIndex].focus = true
-
+            }
         }
     }
+
+
 
 </script>
 
