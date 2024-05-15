@@ -8,9 +8,17 @@
            @input="$emit('update:inputValue', $event.target.value)"
            @blur="inputFocus = false"
            @focus="inputFocus = true"
+           @keydown.down="highlightNext(filteredResults.length)"
+           @keydown.up="highlightPrevious"
+           @keydown.enter="selectPerson(filteredResults[highlightedIndex])"
         /> 
-        <ul v-if="filteredResults && inputValue !== '' && inputFocus === true" @keydown.down="selectSearchBarOption($event)">
-            <li v-for="person in filteredResults" :key="person.id" @click="selectPerson(person)" class="person-list">
+        <ul v-if="filteredResults && inputValue !== '' && inputFocus === true" >
+            <li v-for="person, index in filteredResults" 
+                :key="person.id" 
+                @click="selectPerson(person)" 
+                class="person-list"
+                :class="{'bg-blue-900' : isCurrentIndex(index)}"
+                >
                 <div class="person-image">
                     <img :src="`${imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
                 </div>
@@ -37,6 +45,7 @@
     const emit = defineEmits(['add', 'input', 'update', 'update:inputValue'])
 
     let inputFocus: Ref<boolean> = ref(true)
+    let highlightedIndex: number = -1
 
     const selectPerson = (person: String) => {
         inputValue.value = person.fullName
@@ -64,6 +73,22 @@
                 filteredResults.value[listIndex].focus = true
             }
         }
+    }
+
+    const highlightNext = (filteredResultsLength: number) => {
+        if (highlightedIndex < filteredResultsLength) {
+            highlightedIndex++
+        }
+    }
+
+    const highlightPrevious = () => {
+        if (highlightedIndex > 0) {
+            highlightedIndex--
+        }
+    }
+
+    const isCurrentIndex = (filteredResultIndex: number) => {
+        return filteredResultIndex === highlightedIndex
     }
 
 
