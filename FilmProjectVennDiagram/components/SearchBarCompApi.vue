@@ -6,18 +6,15 @@
            :placeholder="label"
            v-bind="$attrs"
            @input="$emit('update:inputValue', $event.target.value)"
-           @blur="inputFocus = false"
            @focus="inputFocus = true"
-           @keydown.down="highlightNext(filteredResults.length)"
-           @keydown.up="highlightPrevious"
-           @keydown.enter="selectPerson(filteredResults[highlightedIndex])"
+           @keydown.down.prevent="highlightNext(filteredResults.length)"
         /> 
         <ul v-if="filteredResults && inputValue !== '' && inputFocus === true" >
             <li v-for="person, index in filteredResults" 
                 :key="person.id" 
                 @click="selectPerson(person)" 
                 class="person-list"
-                :class="{'bg-blue-900' : isCurrentIndex(index)}"
+                :class="{}"
                 >
                 <div class="person-image">
                     <img :src="`${imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
@@ -99,7 +96,12 @@
 <style scoped>
     .person-list {
         list-style-type: none;
-       
+        background-color: blue;
+        display: flex;
+    }
+    .person-list:active {
+        background-color: brown;
+        list-style-type: none;
         display: flex;
     }
     .person-image {

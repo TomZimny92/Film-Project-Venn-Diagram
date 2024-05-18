@@ -7,7 +7,8 @@
     "dev": "nuxt dev --open",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "build-css": "tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/main.css --watch"
   },
   "dependencies": {
     "typescript": "^5.4.5",
@@ -19,6 +20,7 @@
     "plugin/vue/vue3-essential"
   ],
   "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.0",
     "autoprefixer": "^10.4.19",
     "nuxt": "^3.11.2",
     "postcss": "^8.4.38",
