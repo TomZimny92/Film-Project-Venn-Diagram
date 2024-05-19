@@ -1,7 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  content: [],
+  content: [
+    "./components/**/*.{js,ts,jsx,tsx,vue}",
+    "./layouts/**/*.{js,ts,jsx,tsx,vue}",
+    "./pages/**/*.{js,ts,jsx,tsx,vue}",
+    
+  ],
   theme: {
     extend: {},
   },
