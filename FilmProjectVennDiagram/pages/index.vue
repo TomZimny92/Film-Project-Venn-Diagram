@@ -1,20 +1,26 @@
 <template>
-    <div>
+    <div class="search-bars">
         <div class="search-bars">
             
             <SearchBarCompApi 
                 v-model="inputValue.searchBar1"
                 type="text"
+                class="p-1 border-solid border-2 border-gray-300"
 
             />
             <SearchBarCompApi 
                 v-model="inputValue.searchBar2"
                 type="text"
+                class="p-1 border-solid border-2 border-gray-300"
             />
             
         </div>
         <div>
-            <button @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)">TestApi</button>
+            <button 
+                @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)"
+                class="p-1 border-solid border-2 border-gray-300"    
+            >TestApi</button>
+                
         </div>
 
         <div>

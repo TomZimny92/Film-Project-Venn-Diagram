@@ -99,7 +99,7 @@
         background-color: blue;
         display: flex;
     }
-    .person-list:active {
+    .person-list:hover {
         background-color: brown;
         list-style-type: none;
         display: flex;
