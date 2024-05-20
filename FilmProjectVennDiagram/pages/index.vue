@@ -1,7 +1,13 @@
 <template>
     <div class="search-bars">
         <div class="search-bars">
-            
+            <SearchBarCompApi v-for="searchBar, index in inputValue" 
+                :key="index" 
+                :label="searchBar.label"
+                v-model="inputValue[index]"
+                type="text"
+            />
+            <!--
             <SearchBarCompApi 
                 v-model="inputValue.searchBar1"
                 type="text"
@@ -13,7 +19,13 @@
                 type="text"
                 class="p-1 border-solid border-2 border-gray-300"
             />
-            
+            -->
+        </div>
+        <div>
+            <button
+                @click="addSearchBar"
+                class="p-1 border-solid border-2 border-gray-300"
+            >Add</button>
         </div>
         <div>
             <button 
@@ -38,10 +50,8 @@ import type {MovieData, PersonData} from "../types/types"
 
     let personData = ref<PersonData[] | null>(null)
     let movieCreditResults = ref<MovieData[] | null>(null)
-    let inputValue = reactive({
-        searchBar1: '',
-        searchBar2: ''
-    })
+    let inputValue = reactive({})
+    let searchBars: number = 2
     const movies = ref([])
     let imageUrl: string = 'https://image.tmdb.org/t/p/w500'
 
@@ -110,6 +120,19 @@ import type {MovieData, PersonData} from "../types/types"
         movies.value = matchedMovies
         await sortMovieResults(movies.value)
     }
+
+    const addSearchBar = () => {
+        searchBars++
+        inputValue.push({searchBar: ''})
+    }
+
+    const computeSearchBars = computed(() => {
+        for (let i = 0; i < searchBars; ++i){
+            let searchBar
+            inputValue.push({searchBar: ''})
+
+        }
+    })
 
 </script>
 
