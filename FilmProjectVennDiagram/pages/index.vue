@@ -97,7 +97,7 @@ import type {MovieData, PersonData} from "../types/types"
         if (data !== null){
             movieCreditResults.value?.push(data.value)
         }
-        
+       console.log("cells interlkined") 
     }
 
     const sortMovieResults = async (movies: MovieData[]) => {
