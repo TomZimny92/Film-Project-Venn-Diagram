@@ -2,11 +2,12 @@
     <div class="search-bars">
         <div class="search-bars">
             <SearchBarCompApi v-for="searchBar, index in inputValue" 
-                :key="index" 
-                :label="searchBar.label"
+                :key="searchBar.id" 
                 v-model="inputValue[index]"
                 type="text"
+                class="p-1 border-solid border-2 border-gray-300"
             />
+            
             <!--
             <SearchBarCompApi 
                 v-model="inputValue.searchBar1"
@@ -50,8 +51,12 @@ import type {MovieData, PersonData} from "../types/types"
 
     let personData = ref<PersonData[] | null>(null)
     let movieCreditResults = ref<MovieData[] | null>(null)
-    let inputValue = reactive({})
-    let searchBars: number = 2
+    let inputValue = ref<SearchBar[]>([])
+    type SearchBar = {
+        id: number,
+        value: string
+    }
+    let searchBarCount: number = 2
     const movies = ref([])
     let imageUrl: string = 'https://image.tmdb.org/t/p/w500'
 
@@ -97,7 +102,6 @@ import type {MovieData, PersonData} from "../types/types"
         if (data !== null){
             movieCreditResults.value?.push(data.value)
         }
-       console.log("cells interlkined") 
     }
 
     const sortMovieResults = async (movies: MovieData[]) => {
@@ -122,14 +126,15 @@ import type {MovieData, PersonData} from "../types/types"
     }
 
     const addSearchBar = () => {
-        searchBars++
-        inputValue.push({searchBar: ''})
+        searchBarCount++
+        let searchBar: SearchBar = {id: searchBarCount, value: ''}
+        inputValue.value.push(searchBar)
     }
 
-    const computeSearchBars = computed(() => {
-        for (let i = 0; i < searchBars; ++i){
-            let searchBar
-            inputValue.push({searchBar: ''})
+    const computeSearchBars = onMounted(() => {
+        for (let i = 0; i < searchBarCount; ++i){
+            let searchBar: SearchBar = {id: i+1, value: ''}
+            inputValue.value.push(searchBar)
 
         }
     })
