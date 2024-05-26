@@ -4,6 +4,8 @@
            v-model="inputValue"
            @keyup="filterSearchBar"
            :placeholder="label"
+           type="text"
+            class="p-1 border-solid border-2 border-gray-300"
            v-bind="$attrs"
            @input="$emit('update:inputValue', $event.target.value)"
            @focus="inputFocus = true"
@@ -52,8 +54,15 @@
     const filterSearchBar = async () => {
         if (inputValue.value){
             filteredResults.value = []
-            const {data} = await useFetch(`/api/person/${inputValue.value}`)
-            await sortSearchBarResults(data.value, 'popularity')
+            try {
+                const {data} = await useFetch(`/api/person/${inputValue.value}`)
+                console.log(data.value)
+                await sortSearchBarResults(data.value, 'popularity')
+            }
+            catch (error) {
+                console.log(error)
+            }
+            
         }
     }
 

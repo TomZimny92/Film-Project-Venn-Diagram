@@ -3,11 +3,9 @@
         <div class="search-bars">
             <SearchBarCompApi v-for="searchBar, index in inputValue" 
                 :key="searchBar.id" 
-                v-model="inputValue[index]"
-                type="text"
-                class="p-1 border-solid border-2 border-gray-300"
+                v-model="inputValue[index].value"
+                
             />
-            
             <!--
             <SearchBarCompApi 
                 v-model="inputValue.searchBar1"
@@ -30,7 +28,7 @@
         </div>
         <div>
             <button 
-                @click="submitNames(inputValue.searchBar1, inputValue.searchBar2)"
+                @click="submitNames(inputValue)"
                 class="p-1 border-solid border-2 border-gray-300"    
             >TestApi</button>
                 
@@ -65,10 +63,12 @@ import type {MovieData, PersonData} from "../types/types"
         personData.value?.push(data as PersonData)
     }
 
-    const submitNames = async(sb1: string, sb2: string) => {
+    const submitNames = async(searchBars: SearchBar[]) => {        
         personData.value = []
-        await getPersonData(sb1)
-        await getPersonData(sb2)
+        for (let i = 0; i < searchBars.length; ++i){
+            await getPersonData(searchBars[i].value)
+        }
+        
         await retrieveMovies()
         if (movieCreditResults.value !== null){
             crossReference(movieCreditResults.value)
