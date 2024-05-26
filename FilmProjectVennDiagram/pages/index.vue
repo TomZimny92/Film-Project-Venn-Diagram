@@ -71,7 +71,8 @@ import type {MovieData, PersonData} from "../types/types"
         
         await retrieveMovies()
         if (movieCreditResults.value !== null){
-            crossReference(movieCreditResults.value)
+            //crossReference(movieCreditResults.value)
+            await crossReference2(movieCreditResults.value)
         }
         else {
             console.log('movieCreditResults is null')
@@ -79,20 +80,21 @@ import type {MovieData, PersonData} from "../types/types"
     }
 
     const retrieveMovies = async() => {
-        let personOne: number | undefined = 0
-        let personTwo: number | undefined = 0 
+        let people: number[] = []
         if (personData.value !== null){
-            personOne = personData.value[0].value[0].id
-            personTwo = personData.value[1].value[0].id
+            for (let i = 0; i < personData.value.length; ++i){
+                people.push(personData.value[i].value[0].id)
+            }
         }
         else {
             console.log('personData is null')
         }
        
         movieCreditResults.value = []
-        if (personOne !== null && personTwo !== null){
-            await getMovieData(personOne)
-            await getMovieData(personTwo)
+        if (people.length > 1){
+            for (let i = 0; i < people.length; ++i){
+                await getMovieData(people[i])
+            }
         }
        
     }
@@ -123,6 +125,37 @@ import type {MovieData, PersonData} from "../types/types"
         }
         movies.value = matchedMovies
         await sortMovieResults(movies.value)
+    }
+
+    const crossReference2 = async(movieCreditResults: MovieData[]) => {
+        const matchedMovies: MovieData[] = []
+        let totalMovies: MovieData[] = []
+        for (let i = 0; i < movieCreditResults.length; ++i){
+            movieCreditResults[i].movies.forEach(movie => {
+                totalMovies.push(movie)
+            })
+        }
+
+        matchMovies(totalMovies)
+    }
+
+    const matchMovies = async(movies: MovieData[]) => {
+        const countMap = new Map<string, number>()
+        movies.forEach(movie => {
+            const movieStr = JSON.stringify(movie)
+
+            if (countMap.has(movieStr)){
+                countMap.set(movieStr, (countMap.get(movieStr) || 0)+ 1)
+            }
+            else {
+                countMap.set(movieStr, 1)
+            }
+        })
+        // countMap = {key, value}
+        //const matchedMovies: MovieData[] = []
+        //countMap.forEach((movie, key) => {
+         //   if (key === searchBarCount)
+       // })
     }
 
     const addSearchBar = () => {
