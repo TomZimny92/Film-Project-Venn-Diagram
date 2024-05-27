@@ -1,24 +1,11 @@
 <template>
-    <div class="search-bars">
-        <div class="search-bars">
+    <div>
+        <div>
             <SearchBarCompApi v-for="searchBar, index in inputValue" 
                 :key="searchBar.id" 
                 v-model="inputValue[index].value"
                 
             />
-            <!--
-            <SearchBarCompApi 
-                v-model="inputValue.searchBar1"
-                type="text"
-                class="p-1 border-solid border-2 border-gray-300"
-
-            />
-            <SearchBarCompApi 
-                v-model="inputValue.searchBar2"
-                type="text"
-                class="p-1 border-solid border-2 border-gray-300"
-            />
-            -->
         </div>
         <div>
             <button
@@ -34,7 +21,7 @@
                 
         </div>
 
-        <div>
+        <div class="grid-cols-4">
             <div v-for="movie in movies" :key="movie.id">
                 <h2>{{ movie.title }}</h2>
                 <img :src="`${imageUrl}${movie.posterPath}`">
@@ -55,7 +42,7 @@ import type {MovieData, PersonData} from "../types/types"
         value: string
     }
     let searchBarCount: number = 2
-    const movies = ref([])
+    let movies = ref([])
     let imageUrl: string = 'https://image.tmdb.org/t/p/w500'
 
     const getPersonData = async(person: string) => {
@@ -139,9 +126,9 @@ import type {MovieData, PersonData} from "../types/types"
         matchMovies(totalMovies)
     }
 
-    const matchMovies = async(movies: MovieData[]) => {
+    const matchMovies = async(totalMovies: MovieData[]) => {
         const countMap = new Map<string, number>()
-        movies.forEach(movie => {
+        totalMovies.forEach(movie => {
             const movieStr = JSON.stringify(movie)
 
             if (countMap.has(movieStr)){
@@ -152,10 +139,18 @@ import type {MovieData, PersonData} from "../types/types"
             }
         })
         // countMap = {key, value}
-        //const matchedMovies: MovieData[] = []
-        //countMap.forEach((movie, key) => {
-         //   if (key === searchBarCount)
-       // })
+        const matchedMovies: MovieData[] = []
+        countMap.forEach((movie, key) => {
+            if (movie === searchBarCount){
+                console.log(JSON.parse(key))
+                matchedMovies.push(JSON.parse(key))
+            }
+           //console.log(`movie: ${movie}`)
+           //console.log(`key: ${key}`)
+        })
+
+        movies.value = matchedMovies
+        await sortMovieResults(movies.value)
     }
 
     const addSearchBar = () => {
