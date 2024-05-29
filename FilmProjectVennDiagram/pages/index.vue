@@ -1,33 +1,41 @@
 <template>
     <div>
-        <div>
-            <SearchBarCompApi v-for="searchBar, index in inputValue" 
-                :key="searchBar.id" 
-                v-model="inputValue[index].value"
-                
-            />
-        </div>
-        <div>
-            <button
-                @click="addSearchBar"
-                class="p-1 border-solid border-2 border-gray-300"
-            >Add</button>
-        </div>
-        <div>
-            <button 
-                @click="submitNames(inputValue)"
-                class="p-1 border-solid border-2 border-gray-300"    
-            >TestApi</button>
-                
+        <div class="container">
+            <div class="action-container">
+                <div class="search-bar">
+                    <SearchBarCompApi v-for="searchBar, index in inputValue" 
+                        :key="searchBar.id" 
+                        v-model="inputValue[index].value"
+                        
+                    />
+                </div>
+                <div>
+                    <button
+                        @click="addSearchBar"
+                        class="p-1 border-solid border-2 border-gray-300"
+                    >Add</button>
+                </div>
+                <div>
+                    <button 
+                        @click="submitNames(inputValue)"
+                        class="p-1 border-solid border-2 border-gray-300"    
+                    >TestApi</button>
+                        
+                </div>
+            </div>
+            
+            <div class="results-container">
+                <div class="movie-result-wrapper">
+                    <div v-for="movie in movies" :key="movie.id" class="movie-result">
+                        <h2>{{ movie.title }}</h2>
+                        <img :src="`${imageUrl}${movie.posterPath}`">
+                        <h3>{{ movie.releaseDate }}</h3>
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
-        <div class="grid-cols-4">
-            <div v-for="movie in movies" :key="movie.id">
-                <h2>{{ movie.title }}</h2>
-                <img :src="`${imageUrl}${movie.posterPath}`">
-                <h3>{{ movie.releaseDate }}</h3>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -171,7 +179,25 @@ import type {MovieData, PersonData} from "../types/types"
 
      
 <style scoped>
-    .search-bars {
+    .container {
         display: flex;
+    }
+    .action-container {
+        display: flex;
+        margin: 5px;
+        width: 20%
+    }
+    .results-container {
+       display: grid;
+       grid-template-columns: repeat(4, 1fr);
+       grid-auto-flow: column;
+       gap: 10px;
+    }
+    .movie-result {
+        display: inline;
+        float: left;
+    }
+    .movie-result-wrapper {
+        width: 100%;
     }
 </style>
