@@ -6,30 +6,32 @@
                     <SearchBarCompApi v-for="searchBar, index in inputValue" 
                         :key="searchBar.id" 
                         v-model="inputValue[index].value"
-                        
+                        class="action-element"
                     />
+                    <div class="action-element">
+                        <button
+                            @click="addSearchBar"
+                            class="p-1 border-solid border-2 border-gray-300"
+                        >Add</button>
+                    </div>
+                    <div class="action-element">
+                        <button 
+                            @click="submitNames(inputValue)"
+                            class="p-1 border-solid border-2 border-gray-300"    
+                        >TestApi</button>
+                            
+                    </div>
                 </div>
-                <div>
-                    <button
-                        @click="addSearchBar"
-                        class="p-1 border-solid border-2 border-gray-300"
-                    >Add</button>
-                </div>
-                <div>
-                    <button 
-                        @click="submitNames(inputValue)"
-                        class="p-1 border-solid border-2 border-gray-300"    
-                    >TestApi</button>
-                        
-                </div>
+                
             </div>
             
             <div class="results-container">
                 <div class="movie-result-wrapper">
                     <div v-for="movie in movies" :key="movie.id" class="movie-result">
                         <h2>{{ movie.title }}</h2>
-                        <img :src="`${imageUrl}${movie.posterPath}`">
                         <h3>{{ movie.releaseDate }}</h3>
+                        <img :src="`${imageUrl}${movie.posterPath}`">
+                        
                     </div>
                 </div>
             </div>
@@ -180,24 +182,31 @@ import type {MovieData, PersonData} from "../types/types"
      
 <style scoped>
     .container {
-        display: flex;
+        width: 100%;
     }
     .action-container {
-        display: flex;
-        margin: 5px;
-        width: 20%
+            width: 100%; /* or any specific width */
+            white-space: nowrap; /* prevents wrapping to the next line */
+    }
+    .action-element {
+                display: inline-block;
+            background-color: lightblue; /* just for visualization */
+            padding: 20px; /* just for visualization */
+            margin: 5px; /* space between items */
+            vertical-align: top; /* optional: to align items at the top */        
     }
     .results-container {
-       display: grid;
-       grid-template-columns: repeat(4, 1fr);
-       grid-auto-flow: column;
-       gap: 10px;
+        width: 100%;
     }
     .movie-result {
-        display: inline;
-        float: left;
+        width: 25%; /* or any specific width */
+        margin-bottom: 10px; /* space between divs */
+        background-color: lightblue; /* just for visualization */
+        padding: 20px; /* just for visualization */
     }
     .movie-result-wrapper {
         width: 100%;
+        border: solid 1px black;
+
     }
 </style>
