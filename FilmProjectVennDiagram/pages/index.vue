@@ -189,7 +189,7 @@ import type {MovieData, PersonData} from "../types/types"
             white-space: nowrap; /* prevents wrapping to the next line */
     }
     .action-element {
-                display: inline-block;
+            display: inline-block;
             background-color: lightblue; /* just for visualization */
             padding: 20px; /* just for visualization */
             margin: 5px; /* space between items */
