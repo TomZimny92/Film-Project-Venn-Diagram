@@ -21,26 +21,29 @@
 </template>
 
 <style scoped>
+    body {
+        margin: 10px;
+    }
     .header-wrapper {
-        display: flex;
-        height: 7em;
+        overflow: hidden;
+        background-color: #f1f1f1;
+        padding: 20px 10px;
     }
     .header-left {
-        display: flex
+        float: left;
+        color: black;
+        text-align: center;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        line-height: 25px;
+        border-radius: 4px;
     }
     .header-right {
-        float: left;
-        display: flex
+        float: right;
     }
     .title {
-        font-size: 3vw;
-        display: flex;
-        align-items: flex-end; 
-        margin: 5px;
     }
     .subtitle {
-        display: flex;
-        align-items: flex-end; 
-        margin: 5px;
     }
 </style>
