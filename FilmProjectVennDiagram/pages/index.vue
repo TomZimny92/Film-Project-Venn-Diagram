@@ -167,6 +167,14 @@ import type {MovieData, PersonData} from "../types/types"
         inputValue.value.push(searchBar)
     }
 
+    const removeSearchBar = () => {
+        if (searchBarCount > 0 && searchBarCount >= 2) {
+            searchBarCount--
+            inputValue.value.pop()
+        }
+        // add fun error message when user tries to remove one of the last two search bars
+    }
+
     const computeSearchBars = onMounted(() => {
         for (let i = 0; i < searchBarCount; ++i){
             let searchBar: SearchBar = {id: i+1, value: ''}
@@ -183,7 +191,8 @@ import type {MovieData, PersonData} from "../types/types"
         border: 1px solid black;
         margin: 1rem;
         padding: 2rem 2rem;
-        
+        display: flex;
+        align-items: baseline;
     }
     .action-buttons {
         display: inline-block;
@@ -196,11 +205,24 @@ import type {MovieData, PersonData} from "../types/types"
         background-color: darkgreen;
         color: white;
         border-radius: 15px;
+        display: flex;
+        width: 100%;
+        justify-content: center;
     }
     .search-bars {
-        display: inline-block;
+        display: inline-flex;
+        padding: 1em;
+        width: min-content;
     }
     .movie-result {
         display: inline;
+        width: 25%;
+        padding: 1em;
+    }
+    .results-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: stretch;
+        flex-wrap: wrap;
     }
 </style>
