@@ -216,7 +216,6 @@ import type {MovieData, PersonData} from "../types/types"
     }
     .movie-result {
         display: inline;
-        width: 25%;
         padding: 1em;
     }
     .results-container {

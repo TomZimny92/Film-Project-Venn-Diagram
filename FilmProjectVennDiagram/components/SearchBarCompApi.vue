@@ -11,12 +11,13 @@
            @focus="inputFocus = true"
            @keydown.down.prevent="highlightNext(filteredResults.length)"
         /> 
-        <ul v-if="filteredResults && inputValue !== '' && inputFocus === true" >
+        <ul role="listbox" v-if="filteredResults && inputValue !== '' && inputFocus === true">
             <li v-for="person, index in filteredResults" 
                 :key="person.id" 
                 @click="selectPerson(person)" 
                 class="person-list"
                 :class="{}"
+                role="option"
                 >
                 <div class="person-image">
                     <img :src="`${imageUrl}${person.profilePicture}`" height="100" width="67" loading="eager" />
