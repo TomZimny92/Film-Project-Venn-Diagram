@@ -37,9 +37,11 @@
 </template>
 
 <script setup lang="ts">
-    let filteredResults: Ref<[]> = ref([])
+    import type { PersonData } from '../types/types'
+    let filteredResults: Ref<PersonData[]> = ref([])
     const imageUrl: string = 'https://image.tmdb.org/t/p/w500/'
     const inputValue = defineModel()
+    let personId: number | undefined
     const label: string ='Enter name...'
 
     const emit = defineEmits(['add', 'input', 'update', 'update:inputValue'])
@@ -47,8 +49,9 @@
     let inputFocus: Ref<boolean> = ref(true)
     let highlightedIndex: number = -1
 
-    const selectPerson = (person: String) => {
-        inputValue.value = person.fullName
+    const selectPerson = (person: PersonData) => {
+        inputValue.value = person.FullName
+        personId = person.Id
         filteredResults.value = []
     }
 

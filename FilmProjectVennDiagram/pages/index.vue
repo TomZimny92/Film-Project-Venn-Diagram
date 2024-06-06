@@ -20,7 +20,7 @@
                 <SearchBarCompApi v-for="searchBar, index in inputValue" 
                     :key="searchBar.id" 
                     v-model="inputValue[index].value"
-                    class="movie-result"
+                    class="search-bar"
                 />
             </div>
     
@@ -214,9 +214,13 @@ import type {MovieData, PersonData} from "../types/types"
         padding: 1em;
         width: min-content;
     }
+    .search-bar {
+
+    }
     .movie-result {
         display: inline;
         padding: 1em;
+        width: 25%;
     }
     .results-container {
         display: flex;
