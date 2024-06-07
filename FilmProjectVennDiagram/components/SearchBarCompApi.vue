@@ -50,8 +50,8 @@
     let highlightedIndex: number = -1
 
     const selectPerson = (person: PersonData) => {
-        inputValue.value = person.FullName
-        personId = person.Id
+        inputValue.value = person.fullName
+        personId = person.id
         filteredResults.value = []
     }
 

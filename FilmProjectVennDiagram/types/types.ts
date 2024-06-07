@@ -1,10 +1,10 @@
 export type { PersonData, MovieData }
 type PersonData = {
-    FullName?: string,
-    Id?: number,
-    Popularity?: number,
-    ProfilePicture?: string,
-    Job?: string
+    fullName?: string,
+    id?: number,
+    popularity?: number,
+    profilePicture?: string,
+    job?: string
 }
 
 type MovieData = {
