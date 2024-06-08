@@ -33,17 +33,24 @@
         float: left;
         color: black;
         text-align: center;
-        padding: 12px;
+        margin: 12px;
         text-decoration: none;
         font-size: 18px;
         line-height: 25px;
         border-radius: 4px;
+        width: 50%;
+        display: flex;
     }
     .header-right {
         float: right;
     }
     .title {
+        font-size: 50px;
+        font-weight: bold;
+        height: 100%;
     }
     .subtitle {
+        font-size: 20px;
+        text-align: center;
     }
 </style>
