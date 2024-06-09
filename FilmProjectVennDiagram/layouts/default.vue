@@ -24,6 +24,9 @@
     body {
         margin: 10px;
     }
+    header {
+        height: auto;
+    }
     .header-wrapper {
         overflow: hidden;
         background-color: #f1f1f1;
@@ -42,6 +45,17 @@
         display: flex;
     }
     .header-right {
+        float: right;
+        width: 25%;
+    }
+    .header-right button {
+        cursor: pointer;
+        outline: 0px;
+        background-color: black;
+        color: white;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 5px;
         float: right;
     }
     .title {
