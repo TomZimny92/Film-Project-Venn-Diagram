@@ -9,14 +9,14 @@
            v-bind="$attrs"
            @input="$emit('update:inputValue', $event.target.value)"
            @focus="inputFocus = true"
-           @keydown.down.prevent="highlightNext(filteredResults.length)"
+           @keydown.down="highlightNext"
         /> 
-        <ul role="listbox" v-if="filteredResults && inputValue !== '' && inputFocus === true">
-            <li v-for="person, index in filteredResults" 
+        <ul role="listbox" v-if="filteredResults && inputValue !== '' && inputFocus === true" class="person-list">
+            <li v-for="(person, index) in filteredResults" 
                 :key="person.id" 
                 @click="selectPerson(person)" 
-                class="person-list"
-                :class="{}"
+                
+                :class="{ higlighted: index === highlightedIndex }"
                 role="option"
                 >
                 <div class="person-image">
@@ -85,10 +85,11 @@
         }
     }
 
-    const highlightNext = (filteredResultsLength: number) => {
-        if (highlightedIndex < filteredResultsLength) {
-            highlightedIndex++
+    const highlightNext = () => {
+        if (filteredResults.value.length === 0){
+            return
         }
+        highlightedIndex = (highlightedIndex + 1) % filteredResults.value.length
     }
 
     const highlightPrevious = () => {
@@ -116,6 +117,9 @@
         background-color: brown;
         list-style-type: none;
         display: flex;
+    }
+    .person-list li.highlighted {
+        background: #ddd;
     }
     .person-image {
         display: inline;   
