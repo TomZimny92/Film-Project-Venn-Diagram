@@ -1,5 +1,6 @@
 <template>
     <div>
+<!--
         <div class="action-container">
             <div class="action-buttons">
                 <button
@@ -25,7 +26,11 @@
             </div>
     
         </div>
-       
+-->
+        <div>
+            <GPTTestComponent :options="options"/>
+        </div>
+    <!-- 
         <div class="results-container">
             <div v-for="movie in movies" :key="movie.id" class="movie-result">
                 <h2>{{ movie.title }}</h2>
@@ -34,13 +39,17 @@
                 
             </div>
         </div>
-            
+         -->   
         </div>
 
 </template>
 
 <script setup lang="ts">
 import type {MovieData, PersonData} from "../types/types"
+
+
+    const options = ['hello', 'world', 'eyes', 'platinum', 'enjoyable', 'cleanup']
+
 
     let personData = ref<PersonData[] | null>(null)
     let movieCreditResults = ref<MovieData[] | null>(null)
