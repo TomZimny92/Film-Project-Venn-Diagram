@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "typescript": "^5.4.5",
-    "vite": "^5.4.19",
+    "vite": "^7.0.6",
     "vue": "^3.4.26",
     "vue-router": "^4.3.0"
   },
