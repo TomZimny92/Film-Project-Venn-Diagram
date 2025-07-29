@@ -11,6 +11,7 @@
     "build-css": "tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/main.css --watch"
   },
   "dependencies": {
+    "koa": "^3.0.1",
     "typescript": "^5.4.5",
     "vite": "^7.0.6",
     "vue": "^3.4.26",
