@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.14.0",
-    "parse-git-config": "^3.0.0"
+    "@nuxtjs/tailwindcss": "^6.14.0"
   }
 }
