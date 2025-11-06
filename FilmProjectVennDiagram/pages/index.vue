@@ -1,6 +1,6 @@
 <template>
     <div>
-<!--
+
         <div class="action-container">
             <div class="action-buttons">
                 <button
@@ -26,11 +26,11 @@
             </div>
     
         </div>
--->
-        <div>
+
+<!--        <div>
             <GPTTestComponent :options="options"/>
         </div>
-    <!-- 
+-->
         <div class="results-container">
             <div v-for="movie in movies" :key="movie.id" class="movie-result">
                 <h2>{{ movie.title }}</h2>
